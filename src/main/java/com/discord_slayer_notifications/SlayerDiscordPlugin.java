@@ -69,7 +69,7 @@ import static net.runelite.http.api.RuneLiteAPI.GSON;
 @PluginDescriptor(
 	name = "Discord Slayer Notifications",
 	description = "Send Slayer Task info to Discord",
-	tags = {"notifications", "tasks"}
+	tags = {"notifications", "tasks", "discord"}
 )
 @Slf4j
 public class SlayerDiscordPlugin extends Plugin
