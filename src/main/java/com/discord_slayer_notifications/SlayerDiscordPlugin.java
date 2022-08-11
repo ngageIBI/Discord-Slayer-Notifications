@@ -174,52 +174,17 @@ public class SlayerDiscordPlugin extends Plugin
 		switch (event.getGameState())
 		{
 			case LOGGED_IN:
-				streakAmount = getIntProfileConfig(SlayerDiscordConfig.STREAK_KEY);
-				System.out.println(streakAmount);
+				if(streakAmount == -1)
+				{
+					streakAmount = getIntProfileConfig(SlayerDiscordConfig.STREAK_KEY);
+				}
 		}
 	}
-
-	@Override
-	protected void shutDown() throws Exception
-	{
-		chatCommandManager.unregisterCommand(TASK_COMMAND_STRING);
-	}
-
-	@Subscribe
-	public void onCommandExecuted(CommandExecuted commandExecuted)
-	{
-		if (developerMode && commandExecuted.getCommand().equals("task"))
-		{
-			setTask(commandExecuted.getArguments()[0], 42, 42);
-			log.debug("Set task to {}", commandExecuted.getArguments()[0]);
-		}
-	}
-
-//	private void setProfileConfig(String key, Object value)
-//	{
-//		if (value != null)
-//		{
-//			configManager.setRSProfileConfiguration(SlayerConfig.GROUP_NAME, key, value);
-//		}
-//		else
-//		{
-//			configManager.unsetRSProfileConfiguration(SlayerConfig.GROUP_NAME, key);
-//		}
-//	}
-
-//	private void save()
-//	{
-//		setProfileConfig(SlayerConfig.AMOUNT_KEY, amount);
-//		setProfileConfig(SlayerConfig.INIT_AMOUNT_KEY, initialAmount);
-//		setProfileConfig(SlayerConfig.TASK_NAME_KEY, taskName);
-//		setProfileConfig(SlayerConfig.TASK_LOC_KEY, taskLocation);
-//	}
-
 
 	@Subscribe
 	public void onGameTick(GameTick tick)
 	{
-		if(messageSent == true)
+		if(messageSent == true || config.webhook() == "")
 		{
 			return;
 		}
@@ -262,6 +227,11 @@ public class SlayerDiscordPlugin extends Plugin
 			return;
 		}
 
+		if(config.webhook() == "")
+		{
+			return;
+		}
+
 		String chatMsg = Text.removeTags(event.getMessage()); //remove color and linebreaks
 
 		if (chatMsg.startsWith("You've completed") && (chatMsg.contains("Slayer master") || chatMsg.contains("Slayer Master")))
@@ -289,39 +259,6 @@ public class SlayerDiscordPlugin extends Plugin
 		}
 	}
 
-//	@Subscribe
-//	public void onStatChanged(StatChanged statChanged)
-//	{
-//		if (statChanged.getSkill() != SLAYER)
-//		{
-//			return;
-//		}
-//
-//		int slayerExp = statChanged.getXp();
-//
-//		if (slayerExp <= cachedXp)
-//		{
-//			return;
-//		}
-//
-//		if (cachedXp == -1)
-//		{
-//			// this is the initial xp sent on login
-//			cachedXp = slayerExp;
-//			return;
-//		}
-//
-//		final int delta = slayerExp - cachedXp;
-//		cachedXp = slayerExp;
-//
-//		xpChanged(delta);
-//	}
-
-//	private static Pattern targetNamePattern(final String targetName)
-//	{
-//		return Pattern.compile("(?:\\s|^)" + targetName + "(?:\\s|$)", Pattern.CASE_INSENSITIVE);
-//	}
-
 	@VisibleForTesting
 	void setTask(String name, int amt, int initAmt) {setTask(name, amt, initAmt, null, false);}
 
@@ -348,19 +285,6 @@ public class SlayerDiscordPlugin extends Plugin
 
 		sendDiscordMessage(message);
 	}
-
-//	@Subscribe
-//	public void onChatMessage(ChatMessage event) {
-//		if (event.getType() != ChatMessageType.SPAM) {
-//			return;
-//		}
-//
-//		final String message = event.getMessage();
-//
-//		if (message.startsWith("You successfully cook")) {
-//			System.out.println("DO A THING NOW");
-//			sendDiscordMessage("This is a test");
-//		}
 
 
 	int getIntProfileConfig(String key)
