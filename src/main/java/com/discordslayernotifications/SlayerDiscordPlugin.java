@@ -23,7 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.discord_slayer_notifications;
+package com.discordslayernotifications;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Provides;
@@ -48,22 +48,18 @@ import net.runelite.client.plugins.slayer.SlayerConfig;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.Text;
 import okhttp3.*;
-
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import net.runelite.client.ui.DrawManager;
-
 import static net.runelite.http.api.RuneLiteAPI.GSON;
 
 @PluginDescriptor(
@@ -102,6 +98,7 @@ public class SlayerDiscordPlugin extends Plugin
 	private static final Pattern TASK_STRING_VALIDATION = Pattern.compile("[^a-zA-Z0-9' -]");
 	private static final int TASK_STRING_MAX_LENGTH = 50;
 	private static boolean messageSent = false;
+
 	@Inject
 	private Client client;
 

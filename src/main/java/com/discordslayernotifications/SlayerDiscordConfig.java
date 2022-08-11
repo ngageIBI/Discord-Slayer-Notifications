@@ -1,4 +1,4 @@
-package com.discord_slayer_notifications;
+package com.discordslayernotifications;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;

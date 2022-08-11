@@ -1,4 +1,4 @@
-package com.discord_slayer_notifications;
+package com.discordslayernotifications;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.example;
 
-import com.discord_slayer_notifications.SlayerDiscordPlugin;
+import com.discordslayernotifications.SlayerDiscordPlugin;
 import net.runelite.client.RuneLite;
 import net.runelite.client.externalplugins.ExternalPluginManager;
 
